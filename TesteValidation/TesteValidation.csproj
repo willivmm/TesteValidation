@@ -164,7 +164,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ValidaCartaoAttribute.cs" />
     <Compile Include="Helpers\ValidaCpfAttribute.cs" />
+    <Compile Include="Helpers\ValidaIntervaloDiasAttribute.cs" />
+    <Compile Include="Helpers\ValidaIntervaloValoresAttribute.cs" />
+    <Compile Include="Helpers\ValidaVencimentoAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClienteModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -195,7 +199,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\validacartao.js" />
     <Content Include="Scripts\validacpf.js" />
+    <Content Include="Scripts\validaintervalodias.js" />
+    <Content Include="Scripts\validaintervalovalores.js" />
+    <Content Include="Scripts\validavencimento.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
