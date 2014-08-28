@@ -1,32 +1,121 @@
 ﻿@model TesteValidation.Models.ClienteModels
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Cliente";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-
+<h2>Cliente</h2>
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
-        <h4>ClienteModels</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ValorMinimo)
+        @Html.HiddenFor(model => model.ValorMaximo)
         <div class="form-group">
-            @Html.LabelFor(model => model.Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @id="cpf", @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+                <label>
+                    @Html.LabelFor(model => model.Cpf)
+                </label>
+                <label>
+                    @Html.EditorFor(model => model.Cpf)
+                    @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    @Html.RadioButtonFor(model => model.Bandeira, 1, new { Checked = "checked" })<br />
+                    Visa
+                </label>
+                <label>
+                    @Html.RadioButtonFor(model => model.Bandeira, 2)<br />
+                    Master
+                </label>
+                <label>
+                    @Html.RadioButtonFor(model => model.Bandeira, 5)<br />
+                    Amex
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    @Html.LabelFor(model => model.Titular)
+                </label>
+                <label>
+                    @Html.EditorFor(model => model.Titular)
+                    @Html.ValidationMessageFor(model => model.Titular, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    @Html.LabelFor(model => model.NumeroCartao)
+                </label>
+                <label>
+                    @Html.EditorFor(model => model.NumeroCartao)
+                    @Html.ValidationMessageFor(model => model.NumeroCartao, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    Validade
+                </label>
+                <label>
+                    @Html.DropDownListFor(model => model.ValidadeMes, (List<SelectListItem>)ViewBag.Meses)
+                    @Html.DropDownListFor(model => model.ValidadeAno, (List<SelectListItem>)ViewBag.Anos)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    @Html.LabelFor(model => model.CodigoSeguranca)
+                </label>
+                <label>
+                    @Html.EditorFor(model => model.CodigoSeguranca)
+                    @Html.ValidationMessageFor(model => model.CodigoSeguranca, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    @Html.LabelFor(model => model.DataPagamento)
+                </label>
+                <label>
+                    @Html.EditorFor(model => model.DataPagamento)
+                    @Html.ValidationMessageFor(model => model.DataPagamento, "", new { @class = "text-danger" })
+                </label>
+                <br/>
+                <span class="text-danger">• A data deve estar no intervalo de @DateTime.Now.AddDays(1).ToString("dd/MM/yyyy") e @DateTime.Now.AddDays(25).ToString("dd/MM/yyyy")
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <label>
+                    @Html.LabelFor(model => model.Valor)
+                </label>
+                <label>
+                    @Html.EditorFor(model => model.Valor)
+                    @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+                </label>
+                <br/>
+                <span class="text-danger">• Valor entrada permitido: R$ @Model.ValorMinimo.ToString("f2") até R$ @Model.ValorMaximo.ToString("f2")
+                </span>
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -35,7 +124,12 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#cpf").mask("999.999.999-99", { placeholder: " " });
+            $("input[name='Cpf']").mask("999.999.999-99", { placeholder: " " });
+            $("input[name='DataPagamento']").mask("99/99/9999");
+            $("input[name='Valor']").priceFormat({
+                centsSeparator: ',',
+                thousandsSeparator: ''
+            });
         });
     </script>
 }

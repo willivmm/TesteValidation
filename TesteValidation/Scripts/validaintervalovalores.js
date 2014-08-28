@@ -1,11 +1,4 @@
-﻿jQuery.validator.unobtrusive.adapters.add("validaintervalovalores", ['valorminimo', 'valormaximo'], function (options) {
-    options.rules['validaintervalovalores'] = options.params;
-    if (options.message) {
-        options.messages['validaintervalovalores'] = options.message;
-    }
-});
-
-jQuery.validator.addMethod("validaintervalovalores", function (value, element, params) {
+﻿jQuery.validator.addMethod("validaintervalovalores", function (value, element, params) {
     var minvalue = document.getElementById(params.minvalue).value;
     var maxvalue = document.getElementById(params.maxvalue).value;
     if (value && minvalue && maxvalue) {
@@ -22,4 +15,10 @@ jQuery.validator.addMethod("validaintervalovalores", function (value, element, p
         return false;
     }
     return false;
+}, '');
+jQuery.validator.unobtrusive.adapters.add("validaintervalovalores", ['valorminimo', 'valormaximo'], function (options) {
+    options.rules['validaintervalovalores'] = options.params;
+    if (options.message) {
+        options.messages['validaintervalovalores'] = options.message;
+    }
 });

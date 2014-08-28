@@ -9,25 +9,40 @@ namespace TesteValidation.Controllers
 {
     public class ClienteController : Controller
     {
-        // GET: Cliente
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Cliente/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Cliente/Create
         public ActionResult Create()
         {
-            return View();
+            var meses = new List<SelectListItem>();
+            for (int i = 1; i <= 12; i++)
+            {
+                meses.Add(new SelectListItem() { Text = String.Format("{0:00}", i), Value = i.ToString() });
+            }
+            ViewBag.Meses = meses;
+
+            var anos = new List<SelectListItem>();
+            int anoInicial = DateTime.Now.Year;
+            for (int i = 0; i < 15; i++)
+            {
+                anos.Add(new SelectListItem() { Text = (anoInicial + i).ToString(), Value = (anoInicial + i).ToString() });
+            }
+            ViewBag.Anos = anos;
+
+            var cliente = new ClienteModels();
+            cliente.ValorMinimo = 10;
+            cliente.ValorMaximo = 100;
+
+            return View(cliente);
         }
 
-        // POST: Cliente/Create
         [HttpPost]
         public ActionResult Create(ClienteModels modelo)
         {
@@ -46,13 +61,11 @@ namespace TesteValidation.Controllers
             }
         }
 
-        // GET: Cliente/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, ClienteModels modelo)
         {
@@ -68,13 +81,11 @@ namespace TesteValidation.Controllers
             }
         }
 
-        // GET: Cliente/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Cliente/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, ClienteModels modelo)
         {

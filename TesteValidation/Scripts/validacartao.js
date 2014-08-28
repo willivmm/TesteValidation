@@ -54,15 +54,6 @@
 
     return isValid;
 };
-
-jQuery.validator.setDefaults({ onkeyup: false });
-
-jQuery.validator.unobtrusive.adapters.add("validacartao", ['bandeira'], function (options) {
-    var bandeira = options.params.bandeira;
-    options.rules['validacartao'] = options.params;
-    options.messages['validacartao'] = options.message;
-});
-
 jQuery.validator.addMethod("validacartao", function (value, element, params) {
     if (value) {
         var bandeira = 0;
@@ -96,5 +87,9 @@ jQuery.validator.addMethod("validacartao", function (value, element, params) {
     else {
         return false;
     }
-
+}, '');
+jQuery.validator.unobtrusive.adapters.add("validacartao", ['bandeira'], function (options) {
+    var bandeira = options.params.bandeira;
+    options.rules['validacartao'] = options.params;
+    options.messages['validacartao'] = options.message;
 });

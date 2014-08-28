@@ -1,12 +1,4 @@
-﻿jQuery.validator.unobtrusive.adapters.add("validavencimento", ['outroatributo'], function (options) {
-    options.rules['validavencimento'] = options.params;
-    if (options.message) {
-        options.messages['validavencimento'] = options.message;
-    }
-});
-
-jQuery.validator.addMethod("validavencimento", function (value, element, params) {
-
+﻿jQuery.validator.addMethod("validavencimento", function (value, element, params) {
     var hoje = new Date();
     var mesAtual = hoje.getMonth() + 1;
     var anoAtual = hoje.getFullYear();
@@ -37,5 +29,11 @@ jQuery.validator.addMethod("validavencimento", function (value, element, params)
     }
     else {
         return false;
+    }
+}, '');
+jQuery.validator.unobtrusive.adapters.add("validavencimento", ['outroatributo'], function (options) {
+    options.rules['validavencimento'] = options.params;
+    if (options.message) {
+        options.messages['validavencimento'] = options.message;
     }
 });

@@ -1,11 +1,4 @@
-﻿jQuery.validator.unobtrusive.adapters.add("validaintervalodias", ['diainicial', 'diafinal'], function (options) {
-    options.rules['validaintervalodias'] = options.params;
-    if (options.message) {
-        options.messages['validaintervalodias'] = options.message;
-    }
-});
-
-jQuery.validator.addMethod("validaintervalodias", function (value, element, params) {
+﻿jQuery.validator.addMethod("validaintervalodias", function (value, element, params) {
     if (value) {
         var dd = value.substring(0, 2);
         var mm = value.substring(3, 5);
@@ -27,4 +20,10 @@ jQuery.validator.addMethod("validaintervalodias", function (value, element, para
         return false;
     }
     return false;
+}, '');
+jQuery.validator.unobtrusive.adapters.add("validaintervalodias", ['diainicial', 'diafinal'], function (options) {
+    options.rules['validaintervalodias'] = options.params;
+    if (options.message) {
+        options.messages['validaintervalodias'] = options.message;
+    }
 });
