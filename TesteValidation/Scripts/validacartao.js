@@ -89,7 +89,6 @@ jQuery.validator.addMethod("validacartao", function (value, element, params) {
     }
 }, '');
 jQuery.validator.unobtrusive.adapters.add("validacartao", ['bandeira'], function (options) {
-    var bandeira = options.params.bandeira;
     options.rules['validacartao'] = options.params;
     options.messages['validacartao'] = options.message;
 });
