@@ -9,12 +9,12 @@ namespace TesteValidation.Helpers
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ValidaCartaoAttribute : ValidationAttribute, IClientValidatable
     {
-        protected string propriedade;
+        protected string Bandeira;
 
-        public ValidaCartaoAttribute(string nomePropriedadeTipoCartao)
+        public ValidaCartaoAttribute(string bandeira)
             : base()
         {
-            propriedade = nomePropriedadeTipoCartao;
+            Bandeira = bandeira;
         }
 
         public enum CardType
@@ -28,7 +28,7 @@ namespace TesteValidation.Helpers
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             object item = validationContext.ObjectInstance;
-            int tipo = (int)item.GetType().GetProperty(propriedade).GetValue(item, null);
+            int tipo = (int)item.GetType().GetProperty(Bandeira).GetValue(item, null);
             bool valido = false;
             string cartao = (string)value;
 
@@ -58,7 +58,7 @@ namespace TesteValidation.Helpers
             var rule = new ModelClientValidationRule();
             rule.ErrorMessage = FormatErrorMessage(metadata.GetDisplayName());
             rule.ValidationType = "validacartao";
-            rule.ValidationParameters.Add("bandeira", propriedade);
+            rule.ValidationParameters.Add("bandeira", Bandeira);
             yield return rule;
         }
     }

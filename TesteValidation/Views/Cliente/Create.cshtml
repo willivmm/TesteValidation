@@ -70,6 +70,8 @@
                 <label>
                     @Html.DropDownListFor(model => model.ValidadeMes, (List<SelectListItem>)ViewBag.Meses)
                     @Html.DropDownListFor(model => model.ValidadeAno, (List<SelectListItem>)ViewBag.Anos)
+                    @Html.ValidationMessageFor(model => model.ValidadeMes, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.ValidadeAno, "", new { @class = "text-danger" })
                 </label>
             </div>
         </div>
@@ -93,7 +95,7 @@
                     @Html.EditorFor(model => model.DataPagamento)
                     @Html.ValidationMessageFor(model => model.DataPagamento, "", new { @class = "text-danger" })
                 </label>
-                <br/>
+                <br />
                 <span class="text-danger">• A data deve estar no intervalo de @DateTime.Now.AddDays(1).ToString("dd/MM/yyyy") e @DateTime.Now.AddDays(25).ToString("dd/MM/yyyy")
                 </span>
             </div>
@@ -107,7 +109,7 @@
                     @Html.EditorFor(model => model.Valor)
                     @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
                 </label>
-                <br/>
+                <br />
                 <span class="text-danger">• Valor entrada permitido: R$ @Model.ValorMinimo.ToString("f2") até R$ @Model.ValorMaximo.ToString("f2")
                 </span>
             </div>

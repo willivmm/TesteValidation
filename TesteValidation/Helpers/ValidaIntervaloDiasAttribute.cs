@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace TesteValidation.Helpers
@@ -10,29 +8,29 @@ namespace TesteValidation.Helpers
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ValidaIntervaloDiasAttribute : ValidationAttribute, IClientValidatable
     {
-        protected int FirstDateDay { get; set; }
-        protected int SecondDateDay { get; set; }
+        protected int DiaInicial { get; set; }
+        protected int DiaFinal { get; set; }
 
-        public ValidaIntervaloDiasAttribute(int firstDateDay, int secondDateDay)
+        public ValidaIntervaloDiasAttribute(int diaInicial, int diaFinal)
             : base()
         {
-            FirstDateDay = firstDateDay;
-            SecondDateDay = secondDateDay;
+            DiaInicial = diaInicial;
+            DiaFinal = diaFinal;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var result = ValidationResult.Success;
-            DateTime dateStart = DateTime.Now.AddDays(FirstDateDay).Date;
-            DateTime dateEnd = DateTime.Now.AddDays(SecondDateDay).Date;
-            DateTime date;
+            DateTime diaInicial = DateTime.Now.AddDays(DiaInicial).Date;
+            DateTime diaFinal = DateTime.Now.AddDays(DiaFinal).Date;
+            DateTime data;
 
             if (value == null)
                 return result;
 
-            if (DateTime.TryParse(value.ToString(), out date))
+            if (DateTime.TryParse(value.ToString(), out data))
             {
-                if (date < dateStart && date > dateEnd)
+                if (data < diaInicial && data > diaFinal)
                     return new ValidationResult(ErrorMessage);
             }
             else
@@ -49,8 +47,8 @@ namespace TesteValidation.Helpers
                 ErrorMessage = FormatErrorMessage(metadata.GetDisplayName()),
                 ValidationType = "validaintervalodias"
             };
-            rule.ValidationParameters.Add("diainicial", FirstDateDay);
-            rule.ValidationParameters.Add("diafinal", SecondDateDay);
+            rule.ValidationParameters.Add("diainicial", DiaInicial);
+            rule.ValidationParameters.Add("diafinal", DiaFinal);
             yield return rule;
         }
     }

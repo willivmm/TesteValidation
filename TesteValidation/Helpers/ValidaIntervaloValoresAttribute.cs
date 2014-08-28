@@ -8,21 +8,21 @@ namespace TesteValidation.Helpers
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class ValidaIntervaloValoresAttribute : ValidationAttribute, IClientValidatable
     {
-        protected string MinValue { get; set; }
-        protected string MaxValue { get; set; }
+        protected string ValorMinimo { get; set; }
+        protected string ValorMaximo { get; set; }
 
-        public ValidaIntervaloValoresAttribute(string minValue, string maxValue)
+        public ValidaIntervaloValoresAttribute(string valorMinimo, string valorMaximo)
             : base()
         {
-            MinValue = minValue;
-            MaxValue = maxValue;
+            ValorMinimo = valorMinimo;
+            ValorMaximo = valorMaximo;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var result = ValidationResult.Success;
-            var valorMinimo = validationContext.ObjectType.GetProperty(MinValue).GetValue(validationContext.ObjectInstance, null);
-            var valorMaximo = validationContext.ObjectType.GetProperty(MaxValue).GetValue(validationContext.ObjectInstance, null);
+            var valorMinimo = validationContext.ObjectType.GetProperty(ValorMinimo).GetValue(validationContext.ObjectInstance, null);
+            var valorMaximo = validationContext.ObjectType.GetProperty(ValorMaximo).GetValue(validationContext.ObjectInstance, null);
 
             if (value != null)
             {
@@ -46,8 +46,8 @@ namespace TesteValidation.Helpers
                 ErrorMessage = FormatErrorMessage(metadata.GetDisplayName()),
                 ValidationType = "validaintervalovalores"
             };
-            rule.ValidationParameters.Add("valorminimo", MinValue);
-            rule.ValidationParameters.Add("valormaximo", MaxValue);
+            rule.ValidationParameters.Add("valorminimo", ValorMinimo);
+            rule.ValidationParameters.Add("valormaximo", ValorMaximo);
             yield return rule;
         }
     }
